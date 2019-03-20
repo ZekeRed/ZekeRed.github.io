@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Graphics2D画图，linux环境下中文乱码问题 | Zeke_Red的个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="技术">
+    <meta name="description" content="前言提要 首先要吐槽一下，是这两天遇到的需求，这种要后台来画图的需求可以说是很少了，也很恶心讨厌。我又没有前端美工的美感，还要我把那么多元素搞那么多代码去生成一张图片给前端。  遇到的问题 因为这个系统的其他图片文件都是交由阿里云oss管理，所以我是直接把base64的图片返回给前端，没有另外找磁盘空间放图片(直接返回图片URL是比较友好的方式)。但是在window环境下正常运行的情况下，把代码上">
+<meta name="keywords" content="技术">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Graphics2D画图，linux环境下中文乱码问题">
+<meta property="og:url" content="http://blog.zekered.cn/2019/03/20/Graphics2D画图，linux环境下中文乱码问题/index.html">
+<meta property="og:site_name" content="Zeke_Red的个人博客">
+<meta property="og:description" content="前言提要 首先要吐槽一下，是这两天遇到的需求，这种要后台来画图的需求可以说是很少了，也很恶心讨厌。我又没有前端美工的美感，还要我把那么多元素搞那么多代码去生成一张图片给前端。  遇到的问题 因为这个系统的其他图片文件都是交由阿里云oss管理，所以我是直接把base64的图片返回给前端，没有另外找磁盘空间放图片(直接返回图片URL是比较友好的方式)。但是在window环境下正常运行的情况下，把代码上">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-20T02:55:06.300Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Graphics2D画图，linux环境下中文乱码问题">
+<meta name="twitter:description" content="前言提要 首先要吐槽一下，是这两天遇到的需求，这种要后台来画图的需求可以说是很少了，也很恶心讨厌。我又没有前端美工的美感，还要我把那么多元素搞那么多代码去生成一张图片给前端。  遇到的问题 因为这个系统的其他图片文件都是交由阿里云oss管理，所以我是直接把base64的图片返回给前端，没有另外找磁盘空间放图片(直接返回图片URL是比较友好的方式)。但是在window环境下正常运行的情况下，把代码上">
+    
+    <link rel="shortcut icon" href="https://ws1.sinaimg.cn/large/ca64bc3egy1g083vzksvyj20ag0ajwk5.jpg">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Zeke Red</h5>
+          <a href="mailto:271831674@qq.com" title="271831674@qq.com" class="mail">271831674@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/ZekeRed" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about">
+                <i class="icon icon-lg icon-user"></i>
+                关于
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Graphics2D画图，linux环境下中文乱码问题</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Graphics2D画图，linux环境下中文乱码问题</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-03-20T02:53:40.000Z" itemprop="datePublished" class="page-time">
+  2019-03-20
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前言提要"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言提要</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#遇到的问题"><span class="post-toc-number">2.</span> <span class="post-toc-text">遇到的问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解决方法"><span class="post-toc-number">3.</span> <span class="post-toc-text">解决方法</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#具体操作"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">具体操作</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Graphics2D画图，linux环境下中文乱码问题" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Graphics2D画图，linux环境下中文乱码问题</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-03-20 10:53:40" datetime="2019-03-20T02:53:40.000Z" itemprop="datePublished">2019-03-20</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="前言提要"><a href="#前言提要" class="headerlink" title="前言提要"></a>前言提要</h3><blockquote>
+<p>首先要吐槽一下，是这两天遇到的需求，这种要后台来画图的需求可以说是很少了，也很恶心讨厌。我又没有前端美工的美感，还要我把那么多元素搞那么多代码去生成一张图片给前端。</p>
+</blockquote>
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><blockquote>
+<p>因为这个系统的其他图片文件都是交由阿里云oss管理，所以我是直接把base64的图片返回给前端，没有另外找磁盘空间放图片(直接返回图片URL是比较友好的方式)。但是在window环境下正常运行的情况下，把代码上传到linux服务器，生成的图片中出现的中文乱码的情况。</p>
+</blockquote>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><blockquote>
+<p>经过一番搜索和测试，以下一个方法我觉得比较可靠。</p>
+</blockquote>
+<blockquote>
+<p>出现这个问题的原因就是linux环境下没有中文字体，这种不同于以往的中文乱码。<br>平常的中文乱码的由于传输过程中的编码问题导致的，而这种情况的直接在运行环境下调用系统字体来画在图片上，所以是没有找到相应字体导致的。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置画笔字体</span></span><br><span class="line">g.setFont(<span class="keyword">new</span> Font(<span class="string">"宋体"</span>, Font.PLAIN, <span class="number">34</span>));</span><br></pre></td></tr></table></figure>
+<h4 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h4><blockquote>
+<ol>
+<li>centos 系统安装字体库</li>
+</ol>
+</blockquote>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install fontconfig</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>安装成功后可在 /usr/share 目录下看到 fonts和 fontconfig 目录</p>
+</blockquote>
+<blockquote>
+<p>2.添加中文字体到字体库中</p>
+</blockquote>
+<ul>
+<li>在window下， C:\Windows\Fonts 目录下可找到中文字体。 例如 simsun.ttc 宋体</li>
+<li>上传 simsun.ttc 到linux服务器 /usr/share/fonts/chinese 下。 （chinese是新建的文件夹）</li>
+<li><p>执行命令修改权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 simsun.ttc</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 /usr/share/fonts/chinese 目录下执行 fc-cache -fv，安装字体到系统</p>
+</li>
+<li>执行fc-list可看到已安装的字体</li>
+</ul>
+<blockquote>
+<p>3.重新启动服务器 就能看到效果了</p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="http://blog.zekered.cn">
+            <img src="/img/avatar.jpg" alt="Zeke Red">
+            Zeke Red
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/技术/">技术</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.zekered.cn/2019/03/20/Graphics2D画图，linux环境下中文乱码问题/&title=《Graphics2D画图，linux环境下中文乱码问题》 — Zeke_Red的个人博客&pic=http://blog.zekered.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.zekered.cn/2019/03/20/Graphics2D画图，linux环境下中文乱码问题/&title=《Graphics2D画图，linux环境下中文乱码问题》 — Zeke_Red的个人博客&source=Zeke_Red的个人博客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.zekered.cn/2019/03/20/Graphics2D画图，linux环境下中文乱码问题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Graphics2D画图，linux环境下中文乱码问题》 — Zeke_Red的个人博客&url=http://blog.zekered.cn/2019/03/20/Graphics2D画图，linux环境下中文乱码问题/&via=http://blog.zekered.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.zekered.cn/2019/03/20/Graphics2D画图，linux环境下中文乱码问题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/02/21/eclipse安装lombok插件/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">eclipse安装lombok插件</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "kbgAkJo074O92iClkf9p8kAY-gzGzoHsz",
+            appKey: "ljWC0G6wqTGUVcsd5p6Gvme4",
+            avatar: "mm",
+            placeholder: "我要举手发言！",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢请吃辣条~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Zeke Red &copy; 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.zekered.cn/2019/03/20/Graphics2D画图，linux环境下中文乱码问题/&title=《Graphics2D画图，linux环境下中文乱码问题》 — Zeke_Red的个人博客&pic=http://blog.zekered.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.zekered.cn/2019/03/20/Graphics2D画图，linux环境下中文乱码问题/&title=《Graphics2D画图，linux环境下中文乱码问题》 — Zeke_Red的个人博客&source=Zeke_Red的个人博客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.zekered.cn/2019/03/20/Graphics2D画图，linux环境下中文乱码问题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Graphics2D画图，linux环境下中文乱码问题》 — Zeke_Red的个人博客&url=http://blog.zekered.cn/2019/03/20/Graphics2D画图，linux环境下中文乱码问题/&via=http://blog.zekered.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.zekered.cn/2019/03/20/Graphics2D画图，linux环境下中文乱码问题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADMUlEQVR42u3a227iUAwF0P7/TzOvlWZI9/ZJR2BWnlCgIcuRcH35+oqPx7fj2fnv7z47f339v18/O5O/e3RgY2Njvwn7cXnkt5Vc4fqa7eevr/ND6LGxsbHXsZOkcp2Q2vSW5JQ8++QWbGxsbOzkFq/P5MVJHgJsbGxs7JNGT16onJQlSasLGxsb+5PZs5ZQXqK0Ca/t8/9iLw0bGxv75dmzS7/m61+Zb2NjY2O/MPsxOtryYHb+pL31w/1jY2NjL2L/yipMkFTacULeoiqaU9jY2Ngr2LMRbxuUdsnyJOFFZQk2Njb2UnYOa4PYFgwnDyYaHmNjY2OvY7cLN7NR60koW+T1J7GxsbH3sWf/0LfjgXz2ml8/L5PqCgwbGxv7DdltkZCXHLPFoFlHKAo9NjY29iJ2O8Q9CcT5t+dpLAkNNjY29j5223ZPPnneBio2j+IhBzY2NvYmdn5Ds4jOUlFbhLT3g42Njb2JPSsVTvCzxaB7l4ewsbGx97FP2jRJ+XHXrbffEgUCGxsbexE7+YXPm0onzaBZ8+h85ICNjY39vuy8bMiTU7sG1BYk+XlsbGzs3ezkQnm6yoOVs0/KjGhZBxsbG3sRu/2au1LRrLWUrwf94/rY2NjYi9gnv+2zxlC7HtQOlfPxAzY2NvYOdv5PfA5oR6ptksvHvVHexsbGxl7BbpFtKypvSOX3lhchT8cD2NjY2CvY5wPU2QLNyaDirjUgbGxs7K3sWWr5P4OENhxHm0rY2NjYb8KepYS8fdOWOvnQ4mgsgY2Njb2OnTeA2vFA+zo/06a0Oq9iY2Njvwl7Vlq0azSzUqcdHtd/hY2Njb2CnY9L2xDMhrJJOXHDA8DGxsZexD4B5K3/fNx7PlQuHg82Njb2CvajPIbt+JvClKfD6DljY2Njr2C3aWDWAGpLhXzo2zawsLGxsbey86Q1S3LXQTwpS05SJjY2NvY+9mwJJi8ScvZJesuDhY2Njf2Z7AR215A4KTwi3rN3sbGxsT+SnYcmX7iZJcUbumXY2NjY69h5U6ldpsmb/klw642kZ9fBxsbGXsSeJblZ62fW3D9BDifb2NjY2O/B/gPLuFjcGvzEuQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = 'Zeke_Red的个人博客';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
