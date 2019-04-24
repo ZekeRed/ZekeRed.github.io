@@ -20,18 +20,19 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content>
-    <meta name="description" content="Zeke_Red的个人博客">
+    <meta name="keywords" content="技术,JPA">
+    <meta name="description" content="问题摘要 说是在使用 getOne() 方法出现的问题，其实是在返回数据给前端时出现了json序列化的问题，这个也是由于懒加载出现的，实体对象会多出一个 handler属性，导致无法序列化成 json格式的数据给前端。  解决问题 通过网上查询的方法，只要在实体类上加上注解:1@JsonIgnoreProperties(&amp;#123;&quot;hibernateLazyInitializer&quot;, &quot;hand">
+<meta name="keywords" content="技术,JPA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JPA 使用中 getOne方法出现懒加载问题">
 <meta property="og:url" content="http://blog.zekered.cn/2019/04/24/JPA-使用中-getOne方法出现懒加载问题/index.html">
 <meta property="og:site_name" content="Zeke_Red的个人博客">
-<meta property="og:description" content="Zeke_Red的个人博客">
+<meta property="og:description" content="问题摘要 说是在使用 getOne() 方法出现的问题，其实是在返回数据给前端时出现了json序列化的问题，这个也是由于懒加载出现的，实体对象会多出一个 handler属性，导致无法序列化成 json格式的数据给前端。  解决问题 通过网上查询的方法，只要在实体类上加上注解:1@JsonIgnoreProperties(&amp;#123;&quot;hibernateLazyInitializer&quot;, &quot;hand">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-24T09:39:00.688Z">
+<meta property="og:updated_time" content="2019-04-24T11:06:18.687Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JPA 使用中 getOne方法出现懒加载问题">
-<meta name="twitter:description" content="Zeke_Red的个人博客">
+<meta name="twitter:description" content="问题摘要 说是在使用 getOne() 方法出现的问题，其实是在返回数据给前端时出现了json序列化的问题，这个也是由于懒加载出现的，实体对象会多出一个 handler属性，导致无法序列化成 json格式的数据给前端。  解决问题 通过网上查询的方法，只要在实体类上加上注解:1@JsonIgnoreProperties(&amp;#123;&quot;hibernateLazyInitializer&quot;, &quot;hand">
     
     <link rel="shortcut icon" href="https://ws1.sinaimg.cn/large/ca64bc3egy1g083vzksvyj20ag0ajwk5.jpg">
     <link rel="stylesheet" href="/css/style.css?v=1.7.2">
@@ -147,6 +148,8 @@
 </time>
 
 
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
             
         </h5>
     </div>
@@ -159,6 +162,13 @@
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题摘要"><span class="post-toc-number">1.</span> <span class="post-toc-text">问题摘要</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解决问题"><span class="post-toc-number">2.</span> <span class="post-toc-text">解决问题</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#后续"><span class="post-toc-number">3.</span> <span class="post-toc-text">后续</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#注"><span class="post-toc-number">4.</span> <span class="post-toc-text">注</span></a></li></ol>
+        </nav>
+    </aside>
+
 
 <article id="post-JPA-使用中-getOne方法出现懒加载问题" class="post-article article-type-post fade" itemprop="blogPost">
 
@@ -168,6 +178,8 @@
             <time class="post-time" title="2019-04-24 17:39:00" datetime="2019-04-24T09:39:00.000Z" itemprop="datePublished">2019-04-24</time>
 
             
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
 
 
             
@@ -178,7 +190,34 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            
+            <h3 id="问题摘要"><a href="#问题摘要" class="headerlink" title="问题摘要"></a>问题摘要</h3><blockquote>
+<p>说是在使用 getOne() 方法出现的问题，其实是在返回数据给前端时出现了json序列化的问题，这个也是由于懒加载出现的，实体对象会多出一个 handler属性，导致无法序列化成 json格式的数据给前端。</p>
+</blockquote>
+<h3 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h3><blockquote>
+<p>通过网上查询的方法，只要在实体类上加上注解:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@JsonIgnoreProperties</span>(&#123;<span class="string">"hibernateLazyInitializer"</span>, <span class="string">"handler"</span>&#125;)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>就可以解决序列化的问题，在序列化的时候去掉 handler属性</p>
+</blockquote>
+<h3 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h3><blockquote>
+<p>虽然网上的方法可以解决我的问题，但是在已有的代码上每个持久化实体去加上一个注解，暴躁小哥我实在不能接受，继续研究一下问题。</p>
+</blockquote>
+<blockquote>
+<p>通过 debug 之后发现是由于 getOne() 获取唯一实体的方法引起的懒加载导致的，还有其他人是由于 findOne() 方法导致的，但我使用的已经是基于 hibernate比较高版本的了，并没有 findOne()这个方法。</p>
+</blockquote>
+<blockquote>
+<p>JPA源码中用到的 getReference() 就是懒加载的源头，有兴趣的可以去了解一下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">em.getReference(getDomainClass(), id);</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>既然是由于这个方法引起的，那我就索性不要了这个方法，自己重新写了一个获取唯一实体的方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">getEntityById</span><span class="params">(Class&lt;T&gt; cls, Long id)</span></span>&#123;</span><br><span class="line">    T result = <span class="keyword">null</span>;</span><br><span class="line">    result = entityManager.find(cls, id);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>我这里用到的是 find() 方法，就不会有懒加载这个问题。更详细的内容只有查一下 find() 和 getReference() 的异同就可以了。</p>
+</blockquote>
+<h3 id="注"><a href="#注" class="headerlink" title="注"></a>注</h3><blockquote>
+<p>find()返回指定OID的实体，如果这个实体存在于当前的persistence context中，那么返回值是被缓存的对象；否则会创建一个新的实体，并从数据库中加载相关的持久状态。如果数据库不存在指定的OID的记录，那么find()方法返回null。<br>getReference()方法和find()相似。不同的是：如果缓存中没有指定的实体，EntityManager会创建一个新的实体，但是不会立即访问数据库来加载持久状态，而是在第一次访问某个属性的时候才加载。此外，getReference()方法不返回null，如果数据库找不到相应的实体，这个方法会抛出javax.persistence.EntityNotFoundException</p>
+</blockquote>
+
         </div>
 
         <blockquote class="post-copyright">
@@ -200,6 +239,8 @@
 
         <div class="post-footer">
             
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JPA/">JPA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/技术/">技术</a></li></ul>
+
 
             
 <div class="page-share-wrap">
