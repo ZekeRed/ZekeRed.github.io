@@ -14,25 +14,25 @@
     
     
     
-    <title>eclipse安装lombok插件 | Zeke_Red的个人博客</title>
+    <title>Mysql5.7 1055错误解决方案 | Zeke_Red的个人博客</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="技术,eclipse">
-    <meta name="description" content="由于一个二次开发项目，使用到 @Slf4j 和 @Data 注解等，需要 eclipse 安装 lombok 插件才能正常编译。所以在这里简要介绍一下 lombok 插件的安装。   环境：windows  eclipse   下载 lombok.jar 1https://projectlombok.org/download  将 lombok.jar 放在eclipse 安装目录下，与 ecl">
-<meta name="keywords" content="技术,eclipse">
+    <meta name="keywords" content="技术,mysql">
+    <meta name="description" content="问题描述 原本只是项目中简单的原生sql查询，没想到报错了，1055错误，看描述就是group by的时候select字段里面哪里出错了。  解决方案 还是第一次看到这种错误，可能是原生sql写得少的原因吧，直接网上一查，才知道原来是mysql5.7以后才会出现的问题，简单来说就是要select出的字段不存在group by后的这个原因。   先登录mysql 1mysql -uroot -p">
+<meta name="keywords" content="技术,mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="eclipse安装lombok插件">
-<meta property="og:url" content="http://blog.zekered.cn/2019/02/21/eclipse安装lombok插件/index.html">
+<meta property="og:title" content="Mysql5.7 1055错误解决方案">
+<meta property="og:url" content="http://blog.zekered.cn/2019/07/26/Mysql5-7-1055错误解决方案/index.html">
 <meta property="og:site_name" content="Zeke_Red的个人博客">
-<meta property="og:description" content="由于一个二次开发项目，使用到 @Slf4j 和 @Data 注解等，需要 eclipse 安装 lombok 插件才能正常编译。所以在这里简要介绍一下 lombok 插件的安装。   环境：windows  eclipse   下载 lombok.jar 1https://projectlombok.org/download  将 lombok.jar 放在eclipse 安装目录下，与 ecl">
+<meta property="og:description" content="问题描述 原本只是项目中简单的原生sql查询，没想到报错了，1055错误，看描述就是group by的时候select字段里面哪里出错了。  解决方案 还是第一次看到这种错误，可能是原生sql写得少的原因吧，直接网上一查，才知道原来是mysql5.7以后才会出现的问题，简单来说就是要select出的字段不存在group by后的这个原因。   先登录mysql 1mysql -uroot -p">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-21T08:41:44.764Z">
+<meta property="og:updated_time" content="2019-07-26T08:10:17.303Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="eclipse安装lombok插件">
-<meta name="twitter:description" content="由于一个二次开发项目，使用到 @Slf4j 和 @Data 注解等，需要 eclipse 安装 lombok 插件才能正常编译。所以在这里简要介绍一下 lombok 插件的安装。   环境：windows  eclipse   下载 lombok.jar 1https://projectlombok.org/download  将 lombok.jar 放在eclipse 安装目录下，与 ecl">
+<meta name="twitter:title" content="Mysql5.7 1055错误解决方案">
+<meta name="twitter:description" content="问题描述 原本只是项目中简单的原生sql查询，没想到报错了，1055错误，看描述就是group by的时候select字段里面哪里出错了。  解决方案 还是第一次看到这种错误，可能是原生sql写得少的原因吧，直接网上一查，才知道原来是mysql5.7以后才会出现的问题，简单来说就是要select出的字段不存在group by后的这个原因。   先登录mysql 1mysql -uroot -p">
     
     <link rel="shortcut icon" href="https://ws1.sinaimg.cn/large/ca64bc3egy1g083vzksvyj20ag0ajwk5.jpg">
     <link rel="stylesheet" href="/css/style.css?v=1.7.2">
@@ -118,7 +118,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">eclipse安装lombok插件</div>
+        <div class="flex-col header-title ellipsis">Mysql5.7 1055错误解决方案</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -140,15 +140,15 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">eclipse安装lombok插件</h1>
+        <h1 class="title">Mysql5.7 1055错误解决方案</h1>
         <h5 class="subtitle">
             
-                <time datetime="2019-02-21T08:39:18.000Z" itemprop="datePublished" class="page-time">
-  2019-02-21
+                <time datetime="2019-07-26T07:35:49.000Z" itemprop="datePublished" class="page-time">
+  2019-07-26
 </time>
 
 
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/插件/">插件</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/mysql/">mysql</a></li></ul>
 
             
         </h5>
@@ -162,16 +162,23 @@
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#问题描述"><span class="post-toc-number">1.</span> <span class="post-toc-text">问题描述</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解决方案"><span class="post-toc-number">2.</span> <span class="post-toc-text">解决方案</span></a></li></ol>
+        </nav>
+    </aside>
 
-<article id="post-eclipse安装lombok插件" class="post-article article-type-post fade" itemprop="blogPost">
+
+<article id="post-Mysql5-7-1055错误解决方案" class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">eclipse安装lombok插件</h1>
+        <h1 class="post-card-title">Mysql5.7 1055错误解决方案</h1>
         <div class="post-meta">
-            <time class="post-time" title="2019-02-21 16:39:18" datetime="2019-02-21T08:39:18.000Z" itemprop="datePublished">2019-02-21</time>
+            <time class="post-time" title="2019-07-26 15:35:49" datetime="2019-07-26T07:35:49.000Z" itemprop="datePublished">2019-07-26</time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/插件/">插件</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/mysql/">mysql</a></li></ul>
 
 
 
@@ -183,38 +190,36 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <blockquote>
-<p>由于一个二次开发项目，使用到 @Slf4j 和 @Data 注解等，需要 eclipse 安装 lombok 插件才能正常编译。所以在这里简要介绍一下 lombok 插件的安装。</p>
+            <h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><blockquote>
+<p>原本只是项目中简单的原生sql查询，没想到报错了，1055错误，看描述就是group by的时候select字段里面哪里出错了。</p>
 </blockquote>
-<blockquote>
-<p>环境：windows  eclipse</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><blockquote>
+<p>还是第一次看到这种错误，可能是原生sql写得少的原因吧，直接网上一查，才知道原来是mysql5.7以后才会出现的问题，简单来说就是要select出的字段不存在group by后的这个原因。</p>
 </blockquote>
 <ol>
-<li><p>下载 lombok.jar</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://projectlombok.org/download</span><br></pre></td></tr></table></figure>
+<li><p>先登录mysql</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>将 lombok.jar 放在eclipse 安装目录下，与 eclipse.ini同级目录。<br>(安装目录不能有中文或特殊符号，这个老生常谈了)</p>
-</li>
-<li><p>编辑 eclipse.ini 文件，在文件最后加上</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-javaagent: /eclipse安装路径/lombok.jar</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>重启 eclipse</p>
-</li>
-<li><p>clean项目，切记，这样就算是完成了 lombok 的安装</p>
+<li><p>查询sql_mode，就是这个新增内容导致的问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select @@sql_mode;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
+<p>可以看到查询的结果是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>以上就是 lombok 插件最简单的安装过程，但是关于这个插件还是有几句话要说。 一般我是不推荐使用这样的一个插件的。</p>
+<p>第一个新增的 ONLY_FULL_GROUP_BY 就是导致错误的原因</p>
 </blockquote>
-<blockquote>
-<p>一般在协同开发或者我这种二次开发的情况下，要求别人去安装一个插件来配合你的编程习惯，这是很不友好的。</p>
-</blockquote>
-<blockquote>
-<p>二是这个插件大多数人是为了省略持久化类(也就是实体类)中的 get/set 方法，而这个是一个快捷键就能生成的东西，也不在逻辑层中，很少会改动到，并不会有多大影响。</p>
-</blockquote>
-<blockquote>
-<p>当然，以上只是我个人拙见，喜欢用这个插件的猿不必理会。</p>
-</blockquote>
+<ol start="3">
+<li>编辑 my.cnf 文件，我的文件在 /etc/my.cnf <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/my.cnf</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>把 sql_mode 设置为没有 ONLY_FULL_GROUP_BY，默认没有 sql_mode 参数，可以直接在 [mysqld] 下添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION</span><br></pre></td></tr></table></figure></p>
+<ol start="4">
+<li><p>重启 mysql 服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/mysql/support-files/</span><br><span class="line">./mysql.server restart</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>问题解决</p>
+</li>
+</ol>
 
         </div>
 
@@ -237,7 +242,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/eclipse/">eclipse</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/技术/">技术</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/技术/">技术</a></li></ul>
 
 
             
@@ -247,7 +252,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.zekered.cn/2019/02/21/eclipse安装lombok插件/&title=《eclipse安装lombok插件》 — Zeke_Red的个人博客&pic=https://ws1.sinaimg.cn/large/ca64bc3egy1g083vzksvyj20ag0ajwk5.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.zekered.cn/2019/07/26/Mysql5-7-1055错误解决方案/&title=《Mysql5.7 1055错误解决方案》 — Zeke_Red的个人博客&pic=https://ws1.sinaimg.cn/large/ca64bc3egy1g083vzksvyj20ag0ajwk5.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -257,22 +262,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.zekered.cn/2019/02/21/eclipse安装lombok插件/&title=《eclipse安装lombok插件》 — Zeke_Red的个人博客&source=Zeke_Red的个人博客" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.zekered.cn/2019/07/26/Mysql5-7-1055错误解决方案/&title=《Mysql5.7 1055错误解决方案》 — Zeke_Red的个人博客&source=Zeke_Red的个人博客" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.zekered.cn/2019/02/21/eclipse安装lombok插件/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.zekered.cn/2019/07/26/Mysql5-7-1055错误解决方案/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《eclipse安装lombok插件》 — Zeke_Red的个人博客&url=http://blog.zekered.cn/2019/02/21/eclipse安装lombok插件/&via=http://blog.zekered.cn" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Mysql5.7 1055错误解决方案》 — Zeke_Red的个人博客&url=http://blog.zekered.cn/2019/07/26/Mysql5-7-1055错误解决方案/&via=http://blog.zekered.cn" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.zekered.cn/2019/02/21/eclipse安装lombok插件/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.zekered.cn/2019/07/26/Mysql5-7-1055错误解决方案/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -292,21 +297,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/2019/03/20/Graphics2D画图，linux环境下中文乱码问题/" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Graphics2D画图，linux环境下中文乱码问题</h4>
-      </a>
-    </div>
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2019/02/18/Linux服务器开发环境搭建/" id="post-next" class="post-nav-link">
+      <a href="/2019/04/24/JPA-使用中-getOne方法出现懒加载问题/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Linux服务器开发环境搭建</h4>
+        <h4 class="title">JPA 使用中 getOne方法出现懒加载问题</h4>
       </a>
     </div>
   
@@ -428,7 +426,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.zekered.cn/2019/02/21/eclipse安装lombok插件/&title=《eclipse安装lombok插件》 — Zeke_Red的个人博客&pic=https://ws1.sinaimg.cn/large/ca64bc3egy1g083vzksvyj20ag0ajwk5.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.zekered.cn/2019/07/26/Mysql5-7-1055错误解决方案/&title=《Mysql5.7 1055错误解决方案》 — Zeke_Red的个人博客&pic=https://ws1.sinaimg.cn/large/ca64bc3egy1g083vzksvyj20ag0ajwk5.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -438,22 +436,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.zekered.cn/2019/02/21/eclipse安装lombok插件/&title=《eclipse安装lombok插件》 — Zeke_Red的个人博客&source=Zeke_Red的个人博客" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.zekered.cn/2019/07/26/Mysql5-7-1055错误解决方案/&title=《Mysql5.7 1055错误解决方案》 — Zeke_Red的个人博客&source=Zeke_Red的个人博客" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.zekered.cn/2019/02/21/eclipse安装lombok插件/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.zekered.cn/2019/07/26/Mysql5-7-1055错误解决方案/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《eclipse安装lombok插件》 — Zeke_Red的个人博客&url=http://blog.zekered.cn/2019/02/21/eclipse安装lombok插件/&via=http://blog.zekered.cn" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Mysql5.7 1055错误解决方案》 — Zeke_Red的个人博客&url=http://blog.zekered.cn/2019/07/26/Mysql5-7-1055错误解决方案/&via=http://blog.zekered.cn" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.zekered.cn/2019/02/21/eclipse安装lombok插件/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.zekered.cn/2019/07/26/Mysql5-7-1055错误解决方案/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -464,7 +462,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKklEQVR42u3aUY6EQAhF0d7/pp0FmKm5D+xJhOtXx9hlHT8IUHw++Lpu1/3+b8+TNfm/WpcMGTJey7iO15lBViZ37u/ie5MhQ8YexnkTJHSmv8/Bmu9NhgwZMjiDbIiEThkyZMjoM3jhSpLI88oyZMiQkRaxaWL3bAPusVpchgwZL2SkjbP//P2V8w0ZMmS8inGFV+fcsJYgol3JkCFjNCN9DRmPqKWA6bCFDBkytjHS0YdahtZpt/FSWYYMGfMYncGvNFzyJC9t+cmQIWMDg7fya6+sfYggWMuQIWM0o1/EpsGUp5v8XTJkyJjNqBWZ/TSRJ6MolMuQIWMB47wVftBIRih4OA7WlyFDxmgGL1l5SOWlb3wwSZ6UIUPGaEYnpauljEErLT26kCFDxiAGP27sp308vStOiMiQIWMBo9/67zTXah8inhmRIUPGCxnf2CiJhLUVUAiWIUPGOEY6yFU7N6yNkQVpqwwZMkYz+JFhf3grbcmR9YMuoAwZMkYwaq15XgaTsJ7+KzgekCFDxggGT+D4dmtjFun6MmTI2MPgpexTbbXae//oF8qQIWMc4wqvdDyCHFt2WnIyZMjYwEiPATrJYi2gx8MWMmTIGMqoBVl+bFC7EwdcGTJkLGDUitt+Qy1N+1AtLkOGjPWMc4jkx5m1tzwWcGXIkLGAcQ6a6TPnRBN9IBkyZCxg1Ea+isOm7ZJVhgwZ2xhp6cgDZbqJWgIqQ4aM0YwfzfkD8TsqmkUAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrElEQVR42u3aQY7bMBAEQP//05trgETe7hnSWQSlkyFDEosHDtHD1yu+vn67/rz//qmnNzz9O/vW6sLDw8NbDP3pA+3gkqfej+HpK/mY8fDw8G7zNst6Ukjy6XsqCfk04eHh4f1M3uzzORUPDw/v/+MlYcH7O3mQkT+Lh4eH90levli/LxJt5BoFCp/JWvDw8PBiXj6In/P7Sn8PDw8Pb91VnwWvyZ2k9dUWg7+8Bw8PD+8CbxM0tJHBqe1vvbHGw8PDu8CbNajy0DbHbDbTxZTh4eHhrXmzMjCLfffLenKwAA8PD+8eLwkC2mV9E0zM3v84Wjw8PLxrvDZOPVUq8re11FdenfDw8PDWvOQzbaxwtqdfIPHw8PAu8GaxbLLQJ9v09j1JySnyXTw8PLwFL29EtQWgLQn7BltxdAAPDw9vxGvDiHb7m5eHzSGGxynAw8PD+wjvRrN/39BqI2M8PDy8e7y8HdUeEWjbbC1sGD3g4eHhHeLtD07lBeMUbBiR4OHh4R3iJbFpjkwChVlxymMIPDw8vHu82eCSACIPdtsIuNjW4+Hh4V3jtVFsW0LaEHb2Lx4eHt5neG1TanO1RaU9fBCNGQ8PD2/NKw4wlfFEHunOpimKLfDw8PCu8dqWVbuI71trebwb5Sh4eHh4C14yrFOFYRZMFKHtExUPDw/vKG8ftrZzuYkhkrbZMG/Gw8PDm/e26pLQwo7lzbPtNR4eHt6a91Ve7bBmQ98UAzw8PLzbvFnjf7/Qt2Vmz8bDw8M7y0uKwazxf+pw1aow4OHh4V3jnWp3bVposy1yVBjw8PDw/hEv3zrvQ+FN3PDNAQI8PDy8D/KSQLYNLDatsoiNh4eHd42XhBF5+yovGPty8s0U4OHh4V3gzV49C21nh7Typ4YXHh4eXvrFX6iQ7gNlKUvkAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 
